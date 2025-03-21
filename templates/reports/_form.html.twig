@@ -1,0 +1,37 @@
+<div class="max-w-2xl mx-auto p-6">
+    {{ form_start(form) }}
+        <div class="space-y-6">
+            <div class="form-group">
+                {{ form_label(form.name, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-2'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'}}) }}
+                {{ form_errors(form.name, {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.firm_logo, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-2'}}) }}
+                {{ form_widget(form.firm_logo, {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'}}) }}
+                {{ form_errors(form.firm_logo, {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
+                {% if report.firmLogoUrl is defined and report.firmLogoUrl %}
+                    <div class="mt-3">
+                        <p class="text-sm text-gray-600">Logo actuel :</p>
+                        <img src="{{ asset(report.firmLogoUrl) }}" alt="Logo actuel" class="mt-2 max-h-24 object-contain">
+                    </div>
+                {% endif %}
+            </div>
+
+            {% for field in ['introduction', 'project_name', 'purpose', 'test_methodology', 'test_environment'] %}
+                <div class="form-group">
+                    {{ form_label(attribute(form, field), null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-2'}}) }}
+                    {{ form_widget(attribute(form, field), {'attr': {'class': 'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'}}) }}
+                    {{ form_errors(attribute(form, field), {'attr': {'class': 'text-red-500 text-sm mt-1'}}) }}
+                </div>
+            {% endfor %}
+
+            <div class="flex justify-end">
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                    {{ button_label|default('Save') }}
+                </button>
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>

@@ -1,0 +1,178 @@
+{# templates/reports/pdf.html.twig #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ report.getProjectName() }} – Acceptance Test Report</title>
+  <style>
+    /* Réinitialisation de base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #fff;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    /* En-tête */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+    .header .title {
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .header .subtitle {
+      font-size: 14px;
+      color: #777;
+      margin-top: 5px;
+    }
+    .company-info {
+      text-align: right;
+    }
+    .company-info img {
+      max-height: 80px;
+      width: auto;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    .company-info .company-name {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .company-info .company-intro {
+      font-size: 14px;
+      color: #555;
+    }
+    /* Sections */
+    .section {
+      margin-bottom: 30px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+    }
+    .section-content h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #444;
+    }
+    .section-content p {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    /* Tableau */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      font-size: 14px;
+      text-align: left;
+    }
+    th {
+      background-color: #f7f7f7;
+    }
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- En-tête -->
+    <div class="header">
+      <div>
+        <div class="title">{{ report.getProjectName() }} Acceptance Test Report</div>
+        <div class="subtitle">Created on: {{ report.createdAt|date("F d, Y") }}</div>
+      </div>
+      <div class="company-info">
+        {# On force l'URL absolue pour le logo. Vérifiez que getFirmLogoUrl() retourne un chemin commençant par "/" #}
+        <img src="http://127.0.0.1{{ report.getFirmLogoUrl() }}" alt="Company Logo">
+        <div class="company-name">{{ report.getName() }}</div>
+        <div class="company-intro">{{ report.getIntroduction() }}</div>
+      </div>
+    </div>
+
+    <!-- Participants -->
+    <div class="section">
+      <div class="section-title">Participants</div>
+      <div class="section-content">
+        <p><strong>User:</strong> {{ user.name }} ({{ user.email }})</p>
+        {# Ajoutez d'autres participants ici si besoin #}
+      </div>
+    </div>
+
+    <!-- Détails du rapport -->
+    <div class="section">
+      <div class="section-title">Report Details</div>
+      <div class="section-content">
+        <h2>Introduction</h2>
+        <p>{{ report.getIntroduction() }}</p>
+
+        <h2>Purpose</h2>
+        <p>{{ report.getPurpose() }}</p>
+
+        <h2>Test Methodology</h2>
+        <p>{{ report.getTestMethodology() }}</p>
+
+        <h2>Test Environment</h2>
+        <p>{{ report.getTestEnvironment() }}</p>
+      </div>
+    </div>
+
+    <!-- Résultats des tests -->
+    <div class="section">
+      <div class="section-title">Test Results</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Test Name</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for test in tests %}
+            <tr>
+              <td>{{ test.name }}</td>
+              <td>{{ test.description }}</td>
+              <td>{{ test.status }}</td>
+              <td>{{ test.createdAt|date("F d, Y") }}</td>
+              <td>{{ test.updatedAt|date("F d, Y") }}</td>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="6">No tests available.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

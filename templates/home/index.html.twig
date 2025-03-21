@@ -1,0 +1,173 @@
+{# filepath: /home/louis/Code/cours/pv-de-recette/templates/home/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}PVRecette - Simplify your acceptance process{% endblock %}
+
+{% block body %}
+    {# Hero Section #}
+    <section class="bg-gradient-to-b from-white to-secondary-50 section-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-secondary-900 mb-6">
+                Simplify your acceptance reports
+            </h1>
+            <p class="max-w-2xl mx-auto text-lg text-secondary-600 mb-8">
+                Easily generate, sign, and share your acceptance reports.
+                An intuitive solution to formalize the validation of your projects.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="{{ path('app_register') }}" class="btn btn-lg btn-primary">
+                    Get started for free
+                </a>
+                <a href="#features" class="btn btn-lg btn-outline">
+                    Discover the features
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    {# Features Section #}
+    <section id="features" class="section bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold tracking-tight text-secondary-900">
+                    Main Features
+                </h2>
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-secondary-500">
+                    Everything you need for your acceptance reports
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-3 mt-10">
+                {# Feature 1 #}
+                <div class="card p-6 h-full">
+                    <div class="text-primary-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-2">
+                        Customizable templates
+                    </h3>
+                    <p class="text-secondary-600">
+                        Create and customize your PV templates according to your specific needs.
+                    </p>
+                </div>
+                
+                {# Feature 2 #}
+                <div class="card p-6 h-full">
+                    <div class="text-primary-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-2">
+                        Electronic signatures
+                    </h3>
+                    <p class="text-secondary-600">
+                        Digitally sign your PVs for quick and secure validation.
+                    </p>
+                </div>
+                
+                {# Feature 3 #}
+                <div class="card p-6 h-full">
+                    <div class="text-primary-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-2">
+                        Change tracking
+                    </h3>
+                    <p class="text-secondary-600">
+                        Archive and track the history of changes for complete traceability.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    {# CTA Section #}
+    <section class="section bg-primary-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+            <h2 class="text-3xl font-bold mb-4">
+                Ready to simplify your acceptance process?
+            </h2>
+            <p class="text-xl text-primary-100 mb-8 max-w-3xl mx-auto">
+                Join the professionals who use PVRecette to improve their validation process.
+            </p>
+            <a href="{{ path('app_register') }}" class="btn btn-lg bg-white text-primary-700 hover:bg-primary-50">
+                Create a free account
+            </a>
+        </div>
+    </section>
+    
+    {# Testimonials #}
+    <section class="section bg-secondary-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold tracking-tight text-secondary-900">
+                    Customer testimonials
+                </h2>
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-secondary-500">
+                    They have adopted PVRecette for their projects
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div class="card p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            {% for i in 1..5 %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.799-2.034c-.784-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <blockquote class="text-secondary-600 mb-4">
+                        "The application has greatly simplified our acceptance process. We have reduced the time spent on documentation by 50%."
+                    </blockquote>
+                    <div class="font-medium text-secondary-900">
+                        Roman Cuisinier, Project Manager
+                    </div>
+                </div>
+                
+                <div class="card p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            {% for i in 1..5 %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.799-2.034c-.784-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <blockquote class="text-secondary-600 mb-4">
+                        "Electronic signatures have transformed our workflow. Our customers appreciate the speed and ease of the process."
+                    </blockquote>
+                    <div class="font-medium text-secondary-900">
+                        Gabin Duboc, Web Developer
+                    </div>
+                </div>
+                
+                <div class="card p-6 md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            {% for i in 1..5 %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.799-2.034c-.784-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <blockquote class="text-secondary-600 mb-4">
+                        "Perfect for our distributed team. We can collaborate on PVs even remotely, which is crucial for our way of working."
+                    </blockquote>
+                    <div class="font-medium text-secondary-900">
+                        Julien Henry, Technical Director
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

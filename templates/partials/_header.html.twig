@@ -1,0 +1,92 @@
+{# filepath: /home/louis/Code/cours/pv-de-recette/templates/partials/_header.html.twig #}
+<header class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex-shrink-0 flex items-center">
+                <a href="{{ path('app_home') }}" class="logo">
+                    PV<span class="text-secondary-800">Recette</span>
+                </a>
+            </div>
+            
+            <!-- Navigation desktop -->
+            <div class="hidden sm:flex sm:space-x-4 items-center">
+                {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_reports_index') }}" class="block px-3 py-2 rounded-md text-base font-medium {% if app.request.get('_route') == 'app_reports_new' %}text-primary-700 bg-primary-50{% else %}text-secondary-700 hover:bg-secondary-50{% endif %}">
+                        Reports
+                    </a>
+                    <a href="{{ path('app_user') }}" class="nav-link">
+                        Profile
+                    </a>
+                    <a href="{{ path('app_logout') }}" class="btn btn-outline">
+                        Logout
+                    </a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="nav-link">
+                        Login
+                    </a>
+                    <a href="{{ path('app_register') }}" class="btn btn-primary">
+                        Register
+                    </a>
+                {% endif %}
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="flex items-center sm:hidden">
+                <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-secondary-400 hover:text-secondary-500 hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open menu</span>
+                    <!-- Icon when menu is closed -->
+                    <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <!-- Icon when menu is open -->
+                    <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state -->
+    <div class="sm:hidden hidden" id="mobile-menu">
+        <div class="pt-2 pb-3 space-y-1">
+            <a href="{{ path('app_home') }}" class="block px-3 py-2 rounded-md text-base font-medium {% if app.request.get('_route') == 'app_home' %}text-primary-700 bg-primary-50{% else %}text-secondary-700 hover:bg-secondary-50{% endif %}">
+                Home
+            </a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('app_reports_index') }}" class="block px-3 py-2 rounded-md text-base font-medium {% if app.request.get('_route') == 'app_reports_new' %}text-primary-700 bg-primary-50{% else %}text-secondary-700 hover:bg-secondary-50{% endif %}">
+                    Reports
+                </a>
+                <a href="{{ path('app_user') }}" class="block px-3 py-2 rounded-md text-base font-medium text-secondary-700 hover:bg-secondary-50">
+                    Profile
+                </a>
+                <a href="{{ path('app_logout') }}" class="block px-3 py-2 rounded-md text-base font-medium text-secondary-700 hover:bg-secondary-50">
+                    Logout
+                </a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="block px-3 py-2 rounded-md text-base font-medium text-secondary-700 hover:bg-secondary-50">
+                    Login
+                </a>
+                <a href="{{ path('app_register') }}" class="block px-3 py-2 rounded-md text-base font-medium text-secondary-700 hover:bg-secondary-50">
+                    Register
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<script>
+    // Toggle mobile menu
+    document.addEventListener('DOMContentLoaded', function() {
+        const button = document.querySelector('.mobile-menu-button');
+        const menu = document.querySelector('#mobile-menu');
+        const openIcon = button.querySelector('svg:first-child');
+        const closeIcon = button.querySelector('svg:last-child');
+        
+        button.addEventListener('click', function() {
+            menu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+    });
+</script>

@@ -1,0 +1,156 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Report Details{% endblock %}
+
+{% block body %}
+<div class="container mx-auto px-4 py-8">
+    {# Header with Report Title and Management Toolbar #}
+    <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Report: {{ report.name }}</h1>
+        <div class="mt-4 md:mt-0 flex flex-wrap gap-2">
+            <a href="{{ path('app_reports_pdf', {'id': report.id}) }}" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
+                Generate PDF
+            </a>
+            <a href="{{ path('app_reports_edit', {'id': report.id}) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">
+                Edit Report
+            </a>
+            {{ include('reports/_delete_form.html.twig') }}
+            <a href="{{ path('app_reports_index') }}" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded">
+                Back to List
+            </a>
+        </div>
+    </div>
+
+    {# Report Information Section #}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Project Details -->
+        <div class="bg-white rounded-xl shadow p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Project Details</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Project Name</label>
+                    <p class="mt-1 text-gray-900">{{ report.projectName ?: 'Not specified' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Purpose</label>
+                    <p class="mt-1 text-gray-900">{{ report.purpose ?: 'Not specified' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Created At</label>
+                    <p class="mt-1 text-gray-900">{{ report.createdAt ? report.createdAt|date('d M Y, H:i') : 'Not specified' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Last Updated</label>
+                    <p class="mt-1 text-gray-900">{{ report.updatedAt ? report.updatedAt|date('d M Y, H:i') : 'Not specified' }}</p>
+                </div>
+            </div>
+            {% if report.firmLogoUrl %}
+            <div class="mt-6 border-t pt-4">
+                <label class="text-sm font-medium text-gray-500">Company Logo</label>
+                <img src="{{ asset(report.firmLogoUrl) }}" alt="Company Logo" class="mt-2 h-20 object-contain">
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Testing Information -->
+        <div class="bg-white rounded-xl shadow p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Testing Information</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Introduction</label>
+                    <p class="mt-1 text-gray-900">{{ report.introduction ?: 'Not specified' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Test Methodology</label>
+                    <p class="mt-1 text-gray-900">{{ report.testMethodology ?: 'Not specified' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Test Environment</label>
+                    <p class="mt-1 text-gray-900">{{ report.testEnvironment ?: 'Not specified' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Associated Tests Section #}
+    <div class="mb-8">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">Associated Tests</h2>
+            <div class="flex flex-wrap gap-4">
+            <a href="{{ path('app_reports_tests', {'id': report.id}) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                View All Tests
+            </a>
+            <a href="{{ path('app_test_new_for_report', {'report_id': report.id}) }}" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
+                Add Test
+            </a>
+            </div>
+        </div>
+
+        {% if report.tests is defined and report.tests|length > 0 %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for test in report.tests %}
+            <div class="bg-white shadow rounded-lg p-4">
+                <h3 class="font-bold text-lg mb-2">{{ test.name }}</h3>
+                <div class="mb-2">
+                    <span class="font-semibold">Status:</span>
+                    <span class="px-2 py-1 rounded text-xs 
+                        {% if test.status == 'success' %}
+                            bg-green-100 text-green-800
+                        {% elseif test.status == 'failed' %}
+                            bg-red-100 text-red-800
+                        {% else %}
+                            bg-yellow-100 text-yellow-800
+                        {% endif %}
+                    ">
+                        {{ test.status }}
+                    </span>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                    {{ test.description|slice(0, 100) }}{% if test.description|length > 100 %}...{% endif %}
+                </div>
+                <div class="flex justify-end mt-2 space-x-2">
+                    <a href="{{ path('app_test_show', {'id': test.id}) }}" class="text-blue-500 hover:text-blue-700">View</a>
+                    <a href="{{ path('app_test_edit', {'id': test.id}) }}" class="text-yellow-500 hover:text-yellow-700">Edit</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="bg-gray-100 p-4 rounded text-center">
+            No tests have been added to this report yet.
+        </div>
+        {% endif %}
+    </div>
+
+    {# Generated PDFs Section #}
+    <div class="mt-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Generated PDFs</h2>
+        {% if report.reportVersions is defined and report.reportVersions|length > 0 %}
+        <div class="grid grid-cols-1 gap-4">
+            {% for version in report.reportVersions|sort((a, b) => b.createdAt <=> a.createdAt) %}
+            <div class="bg-white rounded-lg p-4 shadow flex justify-between items-center hover:shadow-md transition-shadow">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-100 p-2 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-medium">Version {{ version.version }}</div>
+                        <div class="text-sm text-gray-500">{{ version.createdAt|date('d M Y, H:i') }}</div>
+                    </div>
+                </div>
+                <a href="{{ asset(version.path) }}" class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                    Download
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="bg-gray-50 rounded-lg p-8 text-center">
+            <p class="text-gray-600">No PDF versions available for this report.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

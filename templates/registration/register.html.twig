@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+{% block body %}
+<div class="min-h-[70vh] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-6">
+                <h2 class="text-center text-3xl font-extrabold text-white">Join Us</h2>
+            </div>
+            <div class="p-8">
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-md" role="alert">
+                        <p class="text-red-700">{{ flash_error }}</p>
+                    </div>
+                {% endfor %}
+
+                {{ form_errors(registrationForm) }}
+
+                {{ form_start(registrationForm) }}
+                    <div class="mb-6">
+                        {{ form_widget(registrationForm.name, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500', 'placeholder': 'Full Name'}}) }}
+                        {{ form_label(registrationForm.name, 'Full Name', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_help(registrationForm.name) }}
+                    </div>
+
+                    <div class="mb-6">
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500', 'placeholder': 'Email Address'}}) }}
+                        {{ form_label(registrationForm.email, 'Email Address', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_help(registrationForm.email) }}
+                    </div>
+
+                    <div class="mb-6">
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500', 'placeholder': 'Password'}}) }}
+                        {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+                        {{ form_help(registrationForm.plainPassword) }}
+                    </div>
+
+                    <div class="mb-6 flex items-start">
+                        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 mr-2 mt-0.5'}}) }}
+                        {{ form_label(registrationForm.agreeTerms, 'I agree to the Terms and Conditions', {'label_attr': {'class': 'text-sm text-gray-600'}}) }}
+                    </div>
+
+                    <div class="mt-8">
+                        <button type="submit" class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                            Create Account
+                        </button>
+                    </div>
+                {{ form_end(registrationForm) }}
+                
+                <div class="text-center mt-6">
+                    <p class="text-sm text-gray-600">
+                        Already have an account? 
+                        <a href="{{ path('app_login') }}" class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out">
+                            Sign in
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reports Dashboard{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto px-4 py-8 min-h-[80vh]">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Reports Dashboard</h1>
+            <a href="{{ path('app_reports_new') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Create New Report
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for report in reports %}
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
+                    {% if report.firmLogoUrl %}
+                        <div class="h-48 overflow-hidden bg-gray-100 flex items-center justify-center p-4">
+                            <img src="{{ report.firmLogoUrl }}" alt="Company logo" class="max-h-full object-contain">
+                        </div>
+                    {% endif %}
+                    
+                    <div class="p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ report.name }}</h2>
+                        <p class="text-gray-600 mb-4">{{ report.projectName }}</p>
+                        
+                        {% if report.introduction %}
+                            <p class="text-gray-500 text-sm mb-4 line-clamp-3">
+                                {{ report.introduction }}
+                            </p>
+                        {% endif %}
+
+                        <div class="text-xs text-gray-500 mb-4">
+                            Last updated: {{ report.updatedAt ? report.updatedAt|date('M d, Y') : 'N/A' }}
+                        </div>
+
+                        <div class="flex gap-2">
+                            <a href="{{ path('app_reports_show', {'id': report.id}) }}" 
+                               class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 rounded-md transition-colors">
+                                View Details
+                            </a>
+                            <a href="{{ path('app_reports_edit', {'id': report.id}) }}" 
+                               class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-center py-2 rounded-md transition-colors">
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-span-full text-center py-12 bg-gray-50 rounded-lg">
+                    <p class="text-gray-500">No reports found</p>
+                    <a href="{{ path('app_reports_new') }}" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">Create your first report</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
